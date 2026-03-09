@@ -1,37 +1,47 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef, createContext, useContext } from 'react';
+import Lenis from 'lenis';
+
+const LenisContext = createContext(null);
+export const useLenis = () => useContext(LenisContext);
+
+// Global reference so non-context components (like HeroSequence) can access it
+let globalLenis = null;
+export const getGlobalLenis = () => globalLenis;
 
 export default function SmoothScroll({ children }) {
+  const lenisRef = useRef(null);
+
   useEffect(() => {
-    let lenis;
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
 
-    const init = async () => {
-      const Lenis = (await import('@studio-freight/lenis')).default;
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        smoothTouch: false,
-        touchMultiplier: 2,
-      });
+    lenisRef.current = lenis;
+    globalLenis = lenis;
 
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-
+    function raf(time) {
+      lenis.raf(time);
       requestAnimationFrame(raf);
-    };
+    }
 
-    init();
+    requestAnimationFrame(raf);
 
     return () => {
-      lenis?.destroy();
+      lenis.destroy();
+      globalLenis = null;
     };
   }, []);
 
-  return <>{children}</>;
+  return (
+    <LenisContext.Provider value={lenisRef}>
+      {children}
+    </LenisContext.Provider>
+  );
 }

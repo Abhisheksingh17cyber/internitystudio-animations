@@ -79,17 +79,27 @@ export function ParallaxSection({ children, speed = 0.3, className = '' }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let rafId = null;
 
     const handleScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const scrolled = window.innerHeight - rect.top;
-      if (scrolled > 0) {
-        el.style.transform = `translateY(${scrolled * speed * -0.1}px)`;
-      }
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (rect.bottom > 0 && rect.top < windowHeight) {
+          const scrolled = windowHeight - rect.top;
+          el.style.transform = `translateY(${scrolled * speed * -0.1}px)`;
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [speed]);
 
   return (

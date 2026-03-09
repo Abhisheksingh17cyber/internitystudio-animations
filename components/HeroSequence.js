@@ -1,79 +1,156 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 const TOTAL_FRAMES = 59;
+
+function getImageSrc(index) {
+  const num = String(index).padStart(3, '0');
+  return `/sequence/final_${num}.jpg`;
+}
 
 export default function HeroSequence() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const imagesRef = useRef([]);
   const currentFrameRef = useRef(0);
+  const loadedSetRef = useRef(new Set());
   const [isLoaded, setIsLoaded] = useState(false);
-  const rafRef = useRef(null);
+  const animFrameRef = useRef(null);
 
-  useEffect(() => {
+  // Draw a frame onto the canvas with cover-fit behavior
+  const drawFrame = useCallback((index) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    const img = imagesRef.current[index];
+    if (!img || !img.complete || !img.naturalWidth) return;
 
-    // Preload all images
-    let loadedCount = 0;
-    const images = [];
+    const cw = canvas.width;
+    const ch = canvas.height;
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      const num = String(i).padStart(3, '0');
-      img.src = `/sequence/final_${num}.jpg`;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === TOTAL_FRAMES) {
-          setIsLoaded(true);
-          // Set canvas size based on first image
-          canvas.width = images[0].naturalWidth;
-          canvas.height = images[0].naturalHeight;
-          drawFrame(0);
-        }
-      };
-      images.push(img);
-    }
+    // Cover-fit: scale image to fill canvas, crop overflow
+    const scale = Math.max(cw / iw, ch / ih);
+    const sw = iw * scale;
+    const sh = ih * scale;
+    const sx = (cw - sw) / 2;
+    const sy = (ch - sh) / 2;
+
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, sx, sy, sw, sh);
+  }, []);
+
+  // Resize canvas to viewport
+  const resizeCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    drawFrame(currentFrameRef.current);
+  }, [drawFrame]);
+
+  useEffect(() => {
+    const images = new Array(TOTAL_FRAMES);
     imagesRef.current = images;
 
-    function drawFrame(index) {
-      const img = images[index];
-      if (!img || !ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    }
+    // Load critical first frames immediately, rest progressively
+    const loadImage = (i) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = getImageSrc(i);
+        img.onload = () => {
+          images[i] = img;
+          loadedSetRef.current.add(i);
+          resolve();
+        };
+        img.onerror = () => {
+          resolve(); // Don't block on failed loads
+        };
+        images[i] = img;
+      });
+    };
 
-    function handleScroll() {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const containerHeight = containerRef.current.offsetHeight;
-      const windowHeight = window.innerHeight;
+    // Load first frame immediately for fast initial display
+    loadImage(0).then(() => {
+      setIsLoaded(true);
+      resizeCanvas();
+      drawFrame(0);
+    });
 
-      // Calculate scroll progress through the container
-      const scrolled = -rect.top;
-      const totalScrollable = containerHeight - windowHeight;
-      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-
-      const frameIndex = Math.min(
-        TOTAL_FRAMES - 1,
-        Math.floor(progress * TOTAL_FRAMES)
-      );
-
-      if (frameIndex !== currentFrameRef.current) {
-        currentFrameRef.current = frameIndex;
-        drawFrame(frameIndex);
+    // Load remaining frames in batches for progressive availability
+    const loadRemaining = async () => {
+      // Load every 4th frame first for coarse scrubbing
+      const coarseFrames = [];
+      for (let i = 1; i < TOTAL_FRAMES; i += 4) {
+        coarseFrames.push(loadImage(i));
       }
-    }
+      await Promise.all(coarseFrames);
+
+      // Then load all remaining frames
+      const remaining = [];
+      for (let i = 1; i < TOTAL_FRAMES; i++) {
+        if (!loadedSetRef.current.has(i)) {
+          remaining.push(loadImage(i));
+        }
+      }
+      await Promise.all(remaining);
+    };
+
+    loadRemaining();
+
+    // Scroll handler using native scroll (works with Lenis since Lenis fires native scroll events)
+    const handleScroll = () => {
+      if (animFrameRef.current) return; // Throttle to rAF
+      animFrameRef.current = requestAnimationFrame(() => {
+        animFrameRef.current = null;
+        const container = containerRef.current;
+        if (!container) return;
+
+        const rect = container.getBoundingClientRect();
+        const containerHeight = container.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrolled = -rect.top;
+        const totalScrollable = containerHeight - windowHeight;
+        const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+        const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
+
+        if (frameIndex !== currentFrameRef.current) {
+          currentFrameRef.current = frameIndex;
+
+          // Find nearest loaded frame if current isn't loaded
+          if (loadedSetRef.current.has(frameIndex)) {
+            drawFrame(frameIndex);
+          } else {
+            // Find closest loaded frame
+            for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+              if (loadedSetRef.current.has(frameIndex - offset) && frameIndex - offset >= 0) {
+                drawFrame(frameIndex - offset);
+                break;
+              }
+              if (loadedSetRef.current.has(frameIndex + offset) && frameIndex + offset < TOTAL_FRAMES) {
+                drawFrame(frameIndex + offset);
+                break;
+              }
+            }
+          }
+        }
+      });
+    };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', resizeCanvas);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('resize', resizeCanvas);
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, []);
+  }, [drawFrame, resizeCanvas]);
 
   return (
     <div ref={containerRef} className="relative h-[300vh]">
@@ -81,10 +158,9 @@ export default function HeroSequence() {
         {/* Canvas */}
         <canvas
           ref={canvasRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 transition-opacity duration-700 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
-          style={{ objectFit: 'cover' }}
         />
         {/* Overlay gradient */}
         <div className="absolute inset-0 hero-overlay" />

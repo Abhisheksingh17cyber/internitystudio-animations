@@ -1,7 +1,7 @@
 'use client';
 
 import HeroSequence from '@/components/HeroSequence';
-import { FadeIn, StaggerContainer, StaggerItem, CountUp, SectionLabel, GoldDivider } from '@/components/Animations';
+import { FadeIn, StaggerContainer, StaggerItem, CountUp, SectionLabel, GoldDivider, ParallaxSection } from '@/components/Animations';
 import { ArrowUpRight, Compass, Globe, Star, Shield, Anchor, Mountain, Sun, TreePine } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -317,19 +317,13 @@ export default function Home() {
 
       {/* Parallax Image Break */}
       <section className="relative h-[60vh] overflow-hidden">
-        <motion.div
-          className="absolute inset-0"
-          style={{ y: 0 }}
-          whileInView={{ y: -50 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          viewport={{ once: false }}
-        >
+        <ParallaxSection speed={0.5} className="absolute inset-0">
           <img
             src="/sequence/final_040.jpg"
             alt="Travel panorama"
-            className="w-full h-[120%] object-cover"
+            className="w-full h-[130%] object-cover"
           />
-        </motion.div>
+        </ParallaxSection>
         <div className="absolute inset-0 hero-overlay" />
         <div className="relative z-10 h-full flex items-center justify-center text-center section-padding">
           <div>
