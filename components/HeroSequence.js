@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-const TOTAL_FRAMES = 59;
+const TOTAL_FRAMES = 143;
 
 function getImageSrc(index) {
-  const num = String(index).padStart(3, '0');
-  return `/sequence/final_${num}.jpg`;
+  const num = String(index + 1).padStart(3, '0');
+  return `/ezgif-frame-${num}.jpg`;
 }
 
 export default function HeroSequence() {
