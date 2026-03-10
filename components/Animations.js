@@ -81,23 +81,19 @@ export function ParallaxSection({ children, speed = 0.3, className = '' }) {
     if (!el) return;
     let rafId = null;
 
-    const handleScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        rafId = null;
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        if (rect.bottom > 0 && rect.top < windowHeight) {
-          const scrolled = windowHeight - rect.top;
-          el.style.transform = `translateY(${scrolled * speed * -0.1}px)`;
-        }
-      });
+    // Use continuous rAF loop instead of scroll events for Lenis compatibility
+    const tick = () => {
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.bottom > 0 && rect.top < windowHeight) {
+        const scrolled = windowHeight - rect.top;
+        el.style.transform = `translateY(${scrolled * speed * -0.1}px)`;
+      }
+      rafId = requestAnimationFrame(tick);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    rafId = requestAnimationFrame(tick);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [speed]);

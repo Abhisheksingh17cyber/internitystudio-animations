@@ -16,7 +16,8 @@ export default function HeroSequence() {
   const currentFrameRef = useRef(0);
   const loadedSetRef = useRef(new Set());
   const [isLoaded, setIsLoaded] = useState(false);
-  const animFrameRef = useRef(null);
+  const isLoadedRef = useRef(false);
+  const rafLoopRef = useRef(null);
 
   const drawFrame = useCallback((index) => {
     const canvas = canvasRef.current;
@@ -27,6 +28,7 @@ export default function HeroSequence() {
 
     const cw = canvas.width;
     const ch = canvas.height;
+    if (cw === 0 || ch === 0) return;
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
@@ -71,12 +73,23 @@ export default function HeroSequence() {
       });
     };
 
+    // Load first frame, then draw it after a brief delay to ensure canvas is ready
     loadImage(0).then(() => {
+      isLoadedRef.current = true;
       setIsLoaded(true);
-      resizeCanvas();
-      drawFrame(0);
+      // Use rAF to ensure the DOM has updated before drawing
+      requestAnimationFrame(() => {
+        resizeCanvas();
+        drawFrame(0);
+        // Double-draw after another frame to catch any React re-render timing issues
+        requestAnimationFrame(() => {
+          resizeCanvas();
+          drawFrame(0);
+        });
+      });
     });
 
+    // Load remaining frames progressively
     const loadRemaining = async () => {
       const coarseFrames = [];
       for (let i = 1; i < TOTAL_FRAMES; i += 4) {
@@ -95,13 +108,23 @@ export default function HeroSequence() {
 
     loadRemaining();
 
-    const handleScroll = () => {
-      if (animFrameRef.current) return;
-      animFrameRef.current = requestAnimationFrame(() => {
-        animFrameRef.current = null;
-        const container = containerRef.current;
-        if (!container) return;
+    // Use a continuous rAF loop to poll scroll position every frame.
+    // This works reliably with Lenis smooth scroll (which may not fire
+    // native scroll events on every interpolated position).
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
 
+    const tick = () => {
+      // Check for resize
+      if (window.innerWidth !== lastWidth || window.innerHeight !== lastHeight) {
+        lastWidth = window.innerWidth;
+        lastHeight = window.innerHeight;
+        resizeCanvas();
+      }
+
+      // Calculate scroll-driven frame
+      const container = containerRef.current;
+      if (container && isLoadedRef.current) {
         const rect = container.getBoundingClientRect();
         const containerHeight = container.offsetHeight;
         const windowHeight = window.innerHeight;
@@ -116,6 +139,7 @@ export default function HeroSequence() {
           if (loadedSetRef.current.has(frameIndex)) {
             drawFrame(frameIndex);
           } else {
+            // Find nearest loaded frame
             for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
               if (loadedSetRef.current.has(frameIndex - offset) && frameIndex - offset >= 0) {
                 drawFrame(frameIndex - offset);
@@ -128,16 +152,15 @@ export default function HeroSequence() {
             }
           }
         }
-      });
+      }
+
+      rafLoopRef.current = requestAnimationFrame(tick);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', resizeCanvas);
+    rafLoopRef.current = requestAnimationFrame(tick);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', resizeCanvas);
-      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      if (rafLoopRef.current) cancelAnimationFrame(rafLoopRef.current);
     };
   }, [drawFrame, resizeCanvas]);
 
@@ -169,18 +192,18 @@ export default function HeroSequence() {
         )}
 
         {/* Hero Content */}
-        <div className="relative z-10 text-center section-padding max-w-5xl mx-auto">
-          <p className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-6 opacity-90">
+        <div className="relative z-10 text-center section-padding max-w-4xl mx-auto">
+          <p className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-4 opacity-90">
             Luxury Travel Redefined
           </p>
-          <h1 className="heading-xl mb-6">
+          <h1 className="heading-xl mb-5">
             Discover the World&apos;s
             <br />
             Most <span className="text-gold">Extraordinary</span>
             <br />
             Destinations
           </h1>
-          <p className="body-text text-lg md:text-xl max-w-2xl mx-auto mb-10 text-white/70">
+          <p className="body-text text-base md:text-lg max-w-2xl mx-auto mb-8 text-white/70">
             Where every journey becomes a timeless story — crafted with elegance,
             designed for the soul, and curated for those who seek the exceptional.
           </p>
@@ -192,12 +215,12 @@ export default function HeroSequence() {
               View Experiences
             </a>
           </div>
+        </div>
 
-          {/* Scroll indicator */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-            <span className="text-text-secondary text-xs uppercase tracking-widest font-satoshi">Scroll to Explore</span>
-            <div className="w-px h-12 bg-gradient-to-b from-gold to-transparent" />
-          </div>
+        {/* Scroll indicator - positioned relative to the sticky viewport */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
+          <span className="text-text-secondary text-xs uppercase tracking-widest font-satoshi">Scroll to Explore</span>
+          <div className="w-px h-10 bg-gradient-to-b from-gold to-transparent" />
         </div>
       </div>
     </div>
