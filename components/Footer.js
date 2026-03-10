@@ -30,15 +30,16 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-navy border-t border-white/5">
+    <footer className="bg-primary-dark border-t border-white/5">
       {/* CTA Banner */}
-      <section className="section-padding py-20 md:py-28 border-b border-white/5">
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="section-padding py-20 md:py-28 border-b border-white/5 relative overflow-hidden">
+        <div className="glow-orb w-[200px] h-[200px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" />
+        <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-inter text-xs uppercase tracking-ultra text-gold mb-6"
+            className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-6"
           >
             Begin Your Story
           </motion.p>
@@ -51,7 +52,7 @@ export default function Footer() {
           >
             Ready for an Extraordinary
             <br />
-            <span className="italic text-gold">Journey?</span>
+            <span className="text-gold">Journey?</span>
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -73,11 +74,11 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <span className="font-playfair text-3xl font-light tracking-wider text-white">
+              <span className="font-satoshi text-3xl font-bold tracking-wider text-white">
                 INTERNITY
               </span>
               <br />
-              <span className="font-inter text-[10px] uppercase tracking-ultra text-gold">
+              <span className="font-satoshi text-[10px] uppercase tracking-ultra text-gold">
                 Tours
               </span>
             </div>
@@ -91,7 +92,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="w-10 h-10 border border-white/10 flex items-center justify-center text-text-secondary hover:text-gold hover:border-gold/30 transition-all duration-300"
+                  className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-text-secondary hover:text-gold hover:border-gold/30 transition-all duration-300"
                 >
                   <Icon size={16} />
                 </a>
@@ -102,7 +103,7 @@ export default function Footer() {
           {/* Links Columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="font-inter text-xs uppercase tracking-ultra text-gold mb-6">
+              <h4 className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-6">
                 {title === 'explore' ? 'Explore' : title === 'destinations' ? 'Destinations' : 'Experiences'}
               </h4>
               <ul className="space-y-3">

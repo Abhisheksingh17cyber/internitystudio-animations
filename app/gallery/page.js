@@ -71,7 +71,11 @@ export default function GalleryPage() {
           />
         </motion.div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/30" />
+        <div className="absolute inset-0 bg-primary/30" />
+
+        {/* Glow orb decorative elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold/3 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 section-padding max-w-7xl mx-auto w-full pt-32">
           <SectionLabel>Visual Stories</SectionLabel>
@@ -79,7 +83,7 @@ export default function GalleryPage() {
             <h1 className="heading-xl mb-6 max-w-4xl">
               A World in
               <br />
-              <span className="italic text-gold">Frames</span>
+              <span className="text-gold">Frames</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -89,12 +93,16 @@ export default function GalleryPage() {
             </p>
           </FadeIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary to-transparent" />
       </section>
 
       {/* Filter + Gallery */}
-      <section className="py-20 md:py-28 bg-navy">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="relative py-20 md:py-28 section-gradient">
+        {/* Glow orb decorative elements */}
+        <div className="absolute top-40 right-0 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-40 left-0 w-64 h-64 bg-gold/3 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto section-padding">
           {/* Category Filters */}
           <FadeIn>
             <div className="flex flex-wrap gap-3 mb-14 justify-center">
@@ -102,10 +110,10 @@ export default function GalleryPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-3 font-inter text-xs uppercase tracking-ultra border transition-all duration-300 ${
+                  className={`px-6 py-3 rounded-card font-satoshi text-xs uppercase tracking-ultra border transition-all duration-300 ${
                     activeCategory === cat
-                      ? 'bg-gold text-navy border-gold'
-                      : 'border-white/15 text-text-secondary hover:border-gold/40 hover:text-gold'
+                      ? 'bg-gold text-primary border-gold'
+                      : 'border-white/10 text-text-secondary hover:border-gold/40 hover:text-gold'
                   }`}
                 >
                   {cat}
@@ -130,7 +138,7 @@ export default function GalleryPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04, duration: 0.5 }}
-                  className={`${img.span} relative group cursor-pointer overflow-hidden`}
+                  className={`${img.span} relative group cursor-pointer overflow-hidden rounded-card`}
                   onClick={() => openLightbox(i)}
                 >
                   <img
@@ -139,13 +147,13 @@ export default function GalleryPage() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                   />
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/60 transition-all duration-500 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-center justify-center rounded-card">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
                       <Maximize2 className="text-gold mx-auto mb-3" size={20} strokeWidth={1.5} />
-                      <p className="font-playfair text-lg font-light text-white mb-1">
+                      <p className="font-satoshi text-lg font-bold text-white mb-1">
                         {img.title}
                       </p>
-                      <p className="text-gold text-[10px] uppercase tracking-ultra font-inter">
+                      <p className="text-gold text-[10px] uppercase tracking-ultra font-satoshi">
                         {img.category}
                       </p>
                     </div>
@@ -158,8 +166,11 @@ export default function GalleryPage() {
       </section>
 
       {/* Stats Bar */}
-      <section className="bg-ocean/30 border-y border-white/5">
-        <div className="max-w-7xl mx-auto section-padding py-14">
+      <section className="relative bg-card border-y border-white/5">
+        {/* Glow orb decorative element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto section-padding py-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: '150+', label: 'Destinations Captured' },
@@ -168,10 +179,10 @@ export default function GalleryPage() {
               { value: '6', label: 'Continents' },
             ].map((stat, i) => (
               <FadeIn key={stat.label} delay={i * 0.1}>
-                <p className="font-playfair text-3xl md:text-4xl font-light text-white mb-1">
+                <p className="font-satoshi text-3xl md:text-4xl font-bold text-white mb-1">
                   {stat.value}
                 </p>
-                <p className="font-inter text-xs uppercase tracking-ultra text-text-secondary">
+                <p className="font-satoshi text-xs uppercase tracking-ultra text-text-secondary">
                   {stat.label}
                 </p>
               </FadeIn>
@@ -181,12 +192,16 @@ export default function GalleryPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 md:py-32 bg-navy">
-        <div className="max-w-3xl mx-auto section-padding text-center">
+      <section className="relative py-24 md:py-32 section-gradient-alt">
+        {/* Glow orb decorative elements */}
+        <div className="absolute top-10 left-1/4 w-72 h-72 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-gold/3 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-3xl mx-auto section-padding text-center">
           <SectionLabel className="text-center">Your Story Awaits</SectionLabel>
           <FadeIn delay={0.1}>
             <h2 className="heading-lg mb-6">
-              Create Your Own <span className="italic text-gold">Masterpiece</span>
+              Create Your Own <span className="text-gold">Masterpiece</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -211,13 +226,13 @@ export default function GalleryPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-navy/98 backdrop-blur-md flex items-center justify-center"
+            className="fixed inset-0 z-[100] bg-primary/98 backdrop-blur-md flex items-center justify-center"
             onClick={closeLightbox}
           >
             {/* Close button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-6 right-6 z-10 w-12 h-12 border border-white/10 flex items-center justify-center text-white hover:text-gold hover:border-gold/30 transition-all duration-300"
+              className="absolute top-6 right-6 z-10 w-12 h-12 rounded-card border border-white/10 flex items-center justify-center text-white hover:text-gold hover:border-gold/30 transition-all duration-300"
             >
               <X size={20} />
             </button>
@@ -226,7 +241,7 @@ export default function GalleryPage() {
             {lightbox > 0 && (
               <button
                 onClick={(e) => { e.stopPropagation(); navigate(-1); }}
-                className="absolute left-4 md:left-8 z-10 w-12 h-12 border border-white/10 flex items-center justify-center text-white hover:text-gold hover:border-gold/30 transition-all duration-300"
+                className="absolute left-4 md:left-8 z-10 w-12 h-12 rounded-card border border-white/10 flex items-center justify-center text-white hover:text-gold hover:border-gold/30 transition-all duration-300"
               >
                 <ChevronLeft size={20} />
               </button>
@@ -234,7 +249,7 @@ export default function GalleryPage() {
             {lightbox < filtered.length - 1 && (
               <button
                 onClick={(e) => { e.stopPropagation(); navigate(1); }}
-                className="absolute right-4 md:right-8 z-10 w-12 h-12 border border-white/10 flex items-center justify-center text-white hover:text-gold hover:border-gold/30 transition-all duration-300"
+                className="absolute right-4 md:right-8 z-10 w-12 h-12 rounded-card border border-white/10 flex items-center justify-center text-white hover:text-gold hover:border-gold/30 transition-all duration-300"
               >
                 <ChevronRight size={20} />
               </button>
@@ -253,20 +268,20 @@ export default function GalleryPage() {
               <img
                 src={filtered[lightbox].src}
                 alt={filtered[lightbox].title}
-                className="w-full h-full object-contain max-h-[75vh]"
+                className="w-full h-full object-contain max-h-[75vh] rounded-card"
               />
               <div className="mt-4 text-center">
-                <p className="font-playfair text-xl font-light text-white">
+                <p className="font-satoshi text-xl font-bold text-white">
                   {filtered[lightbox].title}
                 </p>
-                <p className="text-gold text-xs uppercase tracking-ultra font-inter mt-1">
+                <p className="text-gold text-xs uppercase tracking-ultra font-satoshi mt-1">
                   {filtered[lightbox].category}
                 </p>
               </div>
             </motion.div>
 
             {/* Counter */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-text-secondary text-xs font-inter tracking-wider">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-text-secondary text-xs font-satoshi tracking-wider">
               {lightbox + 1} / {filtered.length}
             </div>
           </motion.div>

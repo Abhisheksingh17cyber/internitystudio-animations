@@ -11,7 +11,7 @@ const contactMethods = [
     icon: Phone,
     title: 'Call Us',
     detail: '+1 (234) 567-890',
-    subtext: 'Mon–Fri, 9AM–7PM EST',
+    subtext: 'Mon--Fri, 9AM--7PM EST',
     href: 'tel:+1234567890',
   },
   {
@@ -47,7 +47,7 @@ const offices = [
 const faqs = [
   {
     q: 'How far in advance should I book?',
-    a: 'We recommend booking 3–6 months in advance for most journeys, and up to 12 months for peak-season destinations and exclusive experiences.',
+    a: 'We recommend booking 3--6 months in advance for most journeys, and up to 12 months for peak-season destinations and exclusive experiences.',
   },
   {
     q: 'Can I customize a pre-designed experience?',
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: 'What is included in the consultation?',
-    a: 'Our complimentary consultation covers your travel aspirations, preferred style, budget considerations, and a preliminary itinerary concept — with no obligation.',
+    a: 'Our complimentary consultation covers your travel aspirations, preferred style, budget considerations, and a preliminary itinerary concept -- with no obligation.',
   },
   {
     q: 'Do you offer group and corporate travel?',
@@ -90,7 +90,7 @@ export default function ContactPage() {
   };
 
   const inputClasses =
-    'w-full px-5 py-4 bg-ocean/50 border border-white/10 text-white placeholder:text-text-secondary/40 font-inter text-sm focus:outline-none focus:border-gold/40 transition-colors duration-300';
+    'w-full px-5 py-4 bg-card/80 backdrop-blur-sm border border-white/10 rounded-pill text-white placeholder:text-text-secondary/40 font-satoshi text-sm focus:outline-none focus:border-gold/40 transition-colors duration-300';
 
   return (
     <>
@@ -109,7 +109,7 @@ export default function ContactPage() {
           />
         </motion.div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/40" />
+        <div className="absolute inset-0 bg-primary/40" />
 
         <div className="relative z-10 section-padding max-w-7xl mx-auto w-full pt-32">
           <SectionLabel>Get in Touch</SectionLabel>
@@ -117,7 +117,7 @@ export default function ContactPage() {
             <h1 className="heading-xl mb-6 max-w-4xl">
               Let&apos;s Plan Your
               <br />
-              <span className="italic text-gold">Dream Journey</span>
+              <span className="text-gold">Dream Journey</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -127,22 +127,25 @@ export default function ContactPage() {
             </p>
           </FadeIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary to-transparent" />
       </section>
 
       {/* Contact Methods */}
-      <section className="py-16 md:py-20 bg-navy border-b border-white/5">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="py-16 md:py-20 bg-primary border-b border-white/5 relative overflow-hidden">
+        {/* Glow orb */}
+        <div className="glow-orb w-[250px] h-[250px] top-[10%] right-[5%] opacity-15" />
+        <div className="max-w-7xl mx-auto section-padding relative z-10">
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactMethods.map((method) => (
               <StaggerItem key={method.title}>
-                <a href={method.href} className="card-luxury p-6 md:p-8 block group hover:bg-ocean/80 transition-all duration-500 h-full">
-                  <div className="w-12 h-12 border border-gold/30 flex items-center justify-center mb-5 group-hover:bg-gold/5 transition-colors duration-500">
+                <a href={method.href} className="card-luxury rounded-card p-6 md:p-8 block group hover:bg-card-hover transition-all duration-500 h-full relative overflow-hidden">
+                  <div className="glow-orb w-[100px] h-[100px] -top-[50px] -right-[50px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
+                  <div className="w-12 h-12 border border-gold/30 rounded-card flex items-center justify-center mb-5 group-hover:bg-gold/5 transition-colors duration-500 relative z-10">
                     <method.icon className="text-gold" size={20} strokeWidth={1.3} />
                   </div>
-                  <h3 className="font-playfair text-lg font-light text-white mb-2">{method.title}</h3>
-                  <p className="text-white text-sm font-inter mb-1">{method.detail}</p>
-                  <p className="text-text-secondary text-xs">{method.subtext}</p>
+                  <h3 className="font-satoshi text-lg font-bold text-white mb-2 relative z-10">{method.title}</h3>
+                  <p className="text-white text-sm font-satoshi mb-1 relative z-10">{method.detail}</p>
+                  <p className="text-text-secondary text-xs relative z-10">{method.subtext}</p>
                 </a>
               </StaggerItem>
             ))}
@@ -151,15 +154,17 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form + Info */}
-      <section className="py-24 md:py-36 bg-navy">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+        {/* Glow orb */}
+        <div className="glow-orb w-[300px] h-[300px] top-[20%] left-[5%] opacity-20" />
+        <div className="max-w-7xl mx-auto section-padding relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-20">
             {/* Form */}
             <div className="lg:col-span-3">
               <SectionLabel>Enquiry Form</SectionLabel>
               <FadeIn delay={0.1}>
                 <h2 className="heading-lg mb-4">
-                  Begin Your <span className="italic text-gold">Consultation</span>
+                  Begin Your <span className="text-gold">Consultation</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.15}>
@@ -168,7 +173,7 @@ export default function ContactPage() {
               <FadeIn delay={0.2}>
                 <p className="body-text text-sm mb-10 max-w-lg">
                   Share your travel aspirations and our team will craft a personalized
-                  proposal within 48 hours. No obligation, no pressure — just inspiration.
+                  proposal within 48 hours. No obligation, no pressure -- just inspiration.
                 </p>
               </FadeIn>
 
@@ -220,13 +225,13 @@ export default function ContactPage() {
                       onChange={handleChange}
                       className={`${inputClasses} appearance-none`}
                     >
-                      <option value="" className="bg-ocean text-text-secondary">Experience Type</option>
-                      <option value="cruise" className="bg-ocean">Luxury Cruise</option>
-                      <option value="cultural" className="bg-ocean">Cultural Immersion</option>
-                      <option value="adventure" className="bg-ocean">Adventure Expedition</option>
-                      <option value="culinary" className="bg-ocean">Culinary Journey</option>
-                      <option value="wellness" className="bg-ocean">Wellness Retreat</option>
-                      <option value="custom" className="bg-ocean">Custom Journey</option>
+                      <option value="" className="bg-card text-text-secondary">Experience Type</option>
+                      <option value="cruise" className="bg-card">Luxury Cruise</option>
+                      <option value="cultural" className="bg-card">Cultural Immersion</option>
+                      <option value="adventure" className="bg-card">Adventure Expedition</option>
+                      <option value="culinary" className="bg-card">Culinary Journey</option>
+                      <option value="wellness" className="bg-card">Wellness Retreat</option>
+                      <option value="custom" className="bg-card">Custom Journey</option>
                     </select>
                     <input
                       name="travelDate"
@@ -247,15 +252,15 @@ export default function ContactPage() {
                     onChange={handleChange}
                     className={`${inputClasses} appearance-none`}
                   >
-                    <option value="" className="bg-ocean text-text-secondary">Budget Range (per person)</option>
-                    <option value="3000-5000" className="bg-ocean">$3,000 – $5,000</option>
-                    <option value="5000-10000" className="bg-ocean">$5,000 – $10,000</option>
-                    <option value="10000-20000" className="bg-ocean">$10,000 – $20,000</option>
-                    <option value="20000+" className="bg-ocean">$20,000+</option>
+                    <option value="" className="bg-card text-text-secondary">Budget Range (per person)</option>
+                    <option value="3000-5000" className="bg-card">$3,000 -- $5,000</option>
+                    <option value="5000-10000" className="bg-card">$5,000 -- $10,000</option>
+                    <option value="10000-20000" className="bg-card">$10,000 -- $20,000</option>
+                    <option value="20000+" className="bg-card">$20,000+</option>
                   </select>
                   <textarea
                     name="message"
-                    placeholder="Tell us about your dream journey — destinations, interests, special occasions..."
+                    placeholder="Tell us about your dream journey -- destinations, interests, special occasions..."
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
@@ -267,7 +272,7 @@ export default function ContactPage() {
                       Send Enquiry
                     </button>
                     <p className="text-text-secondary text-xs">
-                      Complimentary consultation — No obligation
+                      Complimentary consultation -- No obligation
                     </p>
                   </div>
                 </form>
@@ -279,20 +284,21 @@ export default function ContactPage() {
               <SectionLabel>Our Offices</SectionLabel>
               <FadeIn delay={0.1}>
                 <h3 className="heading-md mb-8">
-                  <span className="italic text-gold">Global</span> Presence
+                  <span className="text-gold">Global</span> Presence
                 </h3>
               </FadeIn>
 
               <div className="space-y-6">
                 {offices.map((office, i) => (
                   <FadeIn key={office.city} delay={0.15 + i * 0.1}>
-                    <div className="card-luxury p-6 group hover:bg-ocean/80 transition-all duration-500">
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 border border-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="card-luxury rounded-card p-6 group hover:bg-card-hover transition-all duration-500 relative overflow-hidden">
+                      <div className="glow-orb w-[80px] h-[80px] -top-[40px] -right-[40px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
+                      <div className="flex items-start gap-4 relative z-10">
+                        <div className="w-10 h-10 border border-gold/20 rounded-card flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Globe className="text-gold" size={16} strokeWidth={1.3} />
                         </div>
                         <div>
-                          <h4 className="font-playfair text-lg font-light text-white">
+                          <h4 className="font-satoshi text-lg font-bold text-white">
                             {office.city}
                           </h4>
                           <p className="text-text-secondary text-sm mb-2">{office.country}</p>
@@ -313,16 +319,16 @@ export default function ContactPage() {
 
               {/* Emergency Contact */}
               <FadeIn delay={0.6}>
-                <div className="mt-8 p-6 border border-gold/20 bg-gold/5">
-                  <p className="font-inter text-xs uppercase tracking-ultra text-gold mb-2">
+                <div className="mt-8 p-6 border border-gold/20 rounded-card bg-gold/5">
+                  <p className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-2">
                     24/7 Traveler Support
                   </p>
-                  <p className="text-white text-sm mb-1 font-inter">
+                  <p className="text-white text-sm mb-1 font-satoshi">
                     For travelers currently on a journey:
                   </p>
                   <a
                     href="tel:+18005551234"
-                    className="text-gold font-inter font-semibold text-lg hover:text-gold-light transition-colors"
+                    className="text-gold font-satoshi font-semibold text-lg hover:text-gold-light transition-colors"
                   >
                     +1 (800) 555-1234
                   </a>
@@ -334,13 +340,15 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 md:py-32 bg-ocean/30">
-        <div className="max-w-3xl mx-auto section-padding">
+      <section className="py-24 md:py-32 section-gradient-alt relative overflow-hidden">
+        {/* Glow orb */}
+        <div className="glow-orb w-[200px] h-[200px] top-[30%] left-1/2 -translate-x-1/2 opacity-15" />
+        <div className="max-w-3xl mx-auto section-padding relative z-10">
           <div className="text-center mb-16">
             <SectionLabel className="text-center">Common Questions</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg">
-                Frequently <span className="italic text-gold">Asked</span>
+                Frequently <span className="text-gold">Asked</span>
               </h2>
             </FadeIn>
           </div>
@@ -348,12 +356,12 @@ export default function ContactPage() {
           <div className="space-y-3">
             {faqs.map((faq, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <div className="border border-white/5 overflow-hidden">
+                <div className="border border-white/5 rounded-card overflow-hidden">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full text-left px-6 py-5 flex items-center justify-between hover:bg-ocean/40 transition-colors duration-300"
+                    className="w-full text-left px-6 py-5 flex items-center justify-between hover:bg-card/40 transition-colors duration-300"
                   >
-                    <span className="font-playfair text-lg font-light text-white pr-4">
+                    <span className="font-satoshi text-lg font-bold text-white pr-4">
                       {faq.q}
                     </span>
                     <motion.span
@@ -392,12 +400,14 @@ export default function ContactPage() {
           <img src="/sequence/final_056.jpg" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/50" />
+        <div className="absolute inset-0 bg-primary/50" />
+        {/* Glow orb */}
+        <div className="glow-orb w-[250px] h-[250px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15" />
         <div className="relative z-10 section-padding max-w-4xl mx-auto text-center">
           <SectionLabel className="text-center">Ready to Begin?</SectionLabel>
           <FadeIn delay={0.1}>
             <h2 className="heading-lg mb-6">
-              The World Is <span className="italic text-gold">Waiting</span>
+              The World Is <span className="text-gold">Waiting</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>

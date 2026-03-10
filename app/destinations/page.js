@@ -121,6 +121,10 @@ export default function DestinationsPage() {
     <>
       {/* ====== HERO SECTION ====== */}
       <section className="relative h-[85vh] min-h-[600px] overflow-hidden">
+        {/* Glow Orbs */}
+        <div className="glow-orb w-[200px] h-[200px] top-10 left-10 bg-gold/10 blur-3xl rounded-full absolute" />
+        <div className="glow-orb w-[200px] h-[200px] bottom-20 right-16 bg-accent/10 blur-3xl rounded-full absolute" />
+
         {/* Background Image */}
         <motion.div
           className="absolute inset-0"
@@ -137,7 +141,7 @@ export default function DestinationsPage() {
 
         {/* Dark Overlay */}
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/30" />
+        <div className="absolute inset-0 bg-primary/30" />
 
         {/* Hero Content */}
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center section-padding">
@@ -146,7 +150,7 @@ export default function DestinationsPage() {
           <FadeIn delay={0.2}>
             <h1 className="heading-xl max-w-5xl mx-auto mb-6">
               Explore Extraordinary{' '}
-              <span className="italic text-gold">Destinations</span>
+              <span className="text-gold">Destinations</span>
             </h1>
           </FadeIn>
 
@@ -162,7 +166,7 @@ export default function DestinationsPage() {
           <FadeIn delay={0.6}>
             <div className="mt-10 flex items-center gap-3 text-gold">
               <MapPin size={16} strokeWidth={1.5} />
-              <span className="font-inter text-xs uppercase tracking-ultra">
+              <span className="font-satoshi text-xs uppercase tracking-ultra">
                 150+ Destinations Worldwide
               </span>
             </div>
@@ -170,11 +174,14 @@ export default function DestinationsPage() {
         </div>
 
         {/* Bottom Gradient Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary to-transparent" />
       </section>
 
       {/* ====== FILTER / CATEGORY BAR ====== */}
-      <section className="relative z-10 bg-navy border-b border-white/5">
+      <section className="relative z-10 bg-primary border-b border-white/5 overflow-hidden">
+        {/* Glow Orbs */}
+        <div className="glow-orb w-[200px] h-[200px] top-0 right-1/4 bg-gold/5 blur-3xl rounded-full absolute" />
+
         <div className="max-w-7xl mx-auto section-padding py-8 md:py-10">
           <FadeIn>
             <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
@@ -182,10 +189,10 @@ export default function DestinationsPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 border font-inter font-semibold text-xs uppercase tracking-widest transition-all duration-500 ease-out ${
+                  className={`inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 border font-satoshi font-semibold text-xs uppercase tracking-widest transition-all duration-500 ease-out rounded-card ${
                     activeCategory === cat
-                      ? 'bg-gold text-navy border-gold'
-                      : 'border-gold text-gold hover:bg-gold hover:text-navy'
+                      ? 'bg-gold text-primary border-gold'
+                      : 'border-gold text-gold hover:bg-gold hover:text-primary'
                   }`}
                 >
                   {cat}
@@ -197,7 +204,11 @@ export default function DestinationsPage() {
       </section>
 
       {/* ====== DESTINATIONS GRID ====== */}
-      <section className="py-20 md:py-28 bg-navy">
+      <section className="relative py-20 md:py-28 bg-primary overflow-hidden">
+        {/* Glow Orbs */}
+        <div className="glow-orb w-[200px] h-[200px] top-40 left-[-50px] bg-gold/10 blur-3xl rounded-full absolute" />
+        <div className="glow-orb w-[200px] h-[200px] bottom-60 right-[-30px] bg-accent/10 blur-3xl rounded-full absolute" />
+
         <div className="max-w-7xl mx-auto section-padding">
           {/* Grid Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16">
@@ -207,11 +218,11 @@ export default function DestinationsPage() {
                 <h2 className="heading-lg">
                   {activeCategory === 'All' ? (
                     <>
-                      All <span className="italic text-gold">Destinations</span>
+                      All <span className="text-gold">Destinations</span>
                     </>
                   ) : (
                     <>
-                      <span className="italic text-gold">{activeCategory}</span> Collection
+                      <span className="text-gold">{activeCategory}</span> Collection
                     </>
                   )}
                 </h2>
@@ -245,27 +256,27 @@ export default function DestinationsPage() {
                       ease: [0.25, 0.4, 0.25, 1],
                     }}
                   >
-                    <div className="group card-luxury h-full flex flex-col">
+                    <div className="group card-luxury rounded-card h-full flex flex-col">
                       {/* Card Image */}
-                      <div className="relative aspect-[4/3] overflow-hidden">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-card">
                         <img
                           src={dest.image}
                           alt={dest.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
                         />
                         {/* Image Overlay on Hover */}
-                        <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/60 transition-all duration-700" />
+                        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-700" />
 
                         {/* Region Tag */}
                         <div className="absolute top-4 left-4 z-10">
-                          <span className="px-3 py-1.5 bg-gold/90 text-navy text-[10px] uppercase tracking-widest font-inter font-semibold">
+                          <span className="px-3 py-1.5 bg-gold/90 text-primary text-[10px] uppercase tracking-widest font-satoshi font-semibold rounded-card">
                             {dest.region}
                           </span>
                         </div>
 
                         {/* Hover Description Overlay */}
                         <div className="absolute inset-0 z-10 flex items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                          <p className="text-white/90 text-sm leading-relaxed text-center font-inter">
+                          <p className="text-white/90 text-sm leading-relaxed text-center font-satoshi">
                             {dest.description}
                           </p>
                         </div>
@@ -274,7 +285,7 @@ export default function DestinationsPage() {
                       {/* Card Body */}
                       <div className="flex flex-col flex-1 p-6 md:p-8">
                         {/* Title */}
-                        <h3 className="font-playfair text-xl md:text-2xl font-light text-white mb-3 group-hover:text-gold transition-colors duration-500">
+                        <h3 className="font-satoshi text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-gold transition-colors duration-500">
                           {dest.title}
                         </h3>
 
@@ -287,15 +298,15 @@ export default function DestinationsPage() {
                         <div className="flex items-center justify-between pt-5 border-t border-white/5">
                           <div className="flex items-center gap-2 text-text-secondary">
                             <Clock size={14} strokeWidth={1.5} />
-                            <span className="font-inter text-xs uppercase tracking-wider">
+                            <span className="font-satoshi text-xs uppercase tracking-wider">
                               {dest.duration}
                             </span>
                           </div>
                           <div>
-                            <span className="font-inter text-[10px] uppercase tracking-wider text-text-secondary">
+                            <span className="font-satoshi text-[10px] uppercase tracking-wider text-text-secondary">
                               From{' '}
                             </span>
-                            <span className="font-playfair text-lg text-gold">
+                            <span className="font-satoshi font-bold text-lg text-gold">
                               {dest.price}
                             </span>
                           </div>
@@ -305,7 +316,7 @@ export default function DestinationsPage() {
                         <div className="mt-5">
                           <Link
                             href="/contact"
-                            className="inline-flex items-center gap-2 text-gold text-xs uppercase tracking-widest font-inter font-semibold group-hover:gap-3 transition-all duration-300"
+                            className="inline-flex items-center gap-2 text-gold text-xs uppercase tracking-widest font-satoshi font-semibold group-hover:gap-3 transition-all duration-300"
                           >
                             <span>Enquire Now</span>
                             <ArrowUpRight
@@ -338,13 +349,17 @@ export default function DestinationsPage() {
       </section>
 
       {/* ====== WHY OUR DESTINATIONS ====== */}
-      <section className="py-24 md:py-36 bg-ocean/30">
+      <section className="relative py-24 md:py-36 section-gradient overflow-hidden">
+        {/* Glow Orbs */}
+        <div className="glow-orb w-[200px] h-[200px] top-20 right-10 bg-gold/10 blur-3xl rounded-full absolute" />
+        <div className="glow-orb w-[200px] h-[200px] bottom-10 left-20 bg-accent/10 blur-3xl rounded-full absolute" />
+
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">The INTERNITY Standard</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg mb-6">
-                Why Our <span className="italic text-gold">Destinations</span>
+                Why Our <span className="text-gold">Destinations</span>
               </h2>
             </FadeIn>
             <FadeIn delay={0.2}>
@@ -361,7 +376,7 @@ export default function DestinationsPage() {
             {whyCards.map((card) => (
               <StaggerItem key={card.title}>
                 <div className="text-center group">
-                  <div className="w-16 h-16 mx-auto mb-6 border border-gold/30 flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
+                  <div className="w-16 h-16 mx-auto mb-6 border border-gold/30 rounded-card flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
                     <card.icon className="text-gold" size={24} strokeWidth={1.2} />
                   </div>
                   <h3 className="heading-sm mb-4">{card.title}</h3>
@@ -376,6 +391,10 @@ export default function DestinationsPage() {
 
       {/* ====== CTA / CONSULTATION SECTION ====== */}
       <section className="relative py-24 md:py-36 overflow-hidden">
+        {/* Glow Orbs */}
+        <div className="glow-orb w-[200px] h-[200px] top-16 left-1/3 bg-gold/10 blur-3xl rounded-full absolute z-20" />
+        <div className="glow-orb w-[200px] h-[200px] bottom-16 right-1/4 bg-accent/10 blur-3xl rounded-full absolute z-20" />
+
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -384,7 +403,7 @@ export default function DestinationsPage() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 hero-overlay" />
-          <div className="absolute inset-0 bg-navy/50" />
+          <div className="absolute inset-0 bg-primary/50" />
         </div>
 
         {/* Content */}
@@ -394,7 +413,7 @@ export default function DestinationsPage() {
           <FadeIn delay={0.1}>
             <h2 className="heading-lg mb-6">
               Your Extraordinary Journey{' '}
-              <span className="italic text-gold">Starts Here</span>
+              <span className="text-gold">Starts Here</span>
             </h2>
           </FadeIn>
 
@@ -432,7 +451,7 @@ export default function DestinationsPage() {
           </FadeIn>
 
           <FadeIn delay={0.6}>
-            <p className="mt-10 font-inter text-xs text-white/40 uppercase tracking-wider">
+            <p className="mt-10 font-satoshi text-xs text-white/40 uppercase tracking-wider">
               Complimentary consultation &mdash; No obligation
             </p>
           </FadeIn>

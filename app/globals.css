@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import 'lenis/dist/lenis.css';
 
 @tailwind base;
@@ -6,15 +7,17 @@
 @tailwind utilities;
 
 :root {
-  --navy: #0A1C2F;
-  --ocean: #132B45;
-  --gold: #C8A97E;
-  --gold-light: #D4BA95;
-  --gold-dark: #B89968;
+  --primary: #022b23;
+  --primary-dark: #0a1614;
+  --primary-light: #18332f;
+  --card: #081614;
+  --gold: #ffd8a2;
+  --gold-light: #fbddaf;
+  --gold-dark: #a3906d;
+  --gold-muted: #6d5732;
   --text-primary: #FFFFFF;
-  --text-secondary: #B7BDC7;
-  --light-bg: #F4F4F2;
-  --border: #E5E7EB;
+  --text-secondary: #9a9a9a;
+  --accent: #1e3b38;
 }
 
 * {
@@ -29,39 +32,39 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   color: var(--text-primary);
-  background-color: var(--navy);
+  background-color: var(--primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--navy);
+  background: var(--primary-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
-  border-radius: 4px;
+  background: var(--gold-dark);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-light);
+  background: var(--gold);
 }
 
 ::selection {
   background: var(--gold);
-  color: var(--navy);
+  color: var(--primary);
 }
 
 @layer components {
   .gold-gradient {
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+    background: linear-gradient(90deg, rgba(255, 216, 162, 0.1) 0%, #ffd8a2 50.9%, rgba(255, 216, 162, 0.1) 100%);
   }
 
   .text-gold-gradient {
@@ -71,77 +74,80 @@ body {
     background-clip: text;
   }
 
-  .navy-gradient {
-    background: linear-gradient(180deg, var(--navy) 0%, var(--ocean) 100%);
-  }
-
   .hero-overlay {
     background: linear-gradient(
       180deg,
-      rgba(10, 28, 47, 0.7) 0%,
-      rgba(10, 28, 47, 0.3) 40%,
-      rgba(10, 28, 47, 0.5) 70%,
-      rgba(10, 28, 47, 0.9) 100%
+      rgba(2, 43, 35, 0.8) 0%,
+      rgba(2, 43, 35, 0.3) 40%,
+      rgba(2, 43, 35, 0.5) 70%,
+      rgba(2, 43, 35, 0.95) 100%
     );
   }
 
   .section-padding {
-    @apply px-6 md:px-12 lg:px-24 xl:px-32;
+    @apply px-6 md:px-12 lg:px-20 xl:px-24;
   }
 
   .heading-xl {
-    @apply font-playfair text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight;
+    @apply font-satoshi text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight;
   }
 
   .heading-lg {
-    @apply font-playfair text-3xl md:text-5xl lg:text-6xl font-light leading-tight;
+    @apply font-satoshi text-3xl md:text-5xl lg:text-6xl font-bold leading-tight;
   }
 
   .heading-md {
-    @apply font-playfair text-2xl md:text-3xl lg:text-4xl font-light leading-tight;
+    @apply font-satoshi text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
   }
 
   .heading-sm {
-    @apply font-playfair text-xl md:text-2xl font-light leading-tight;
+    @apply font-satoshi text-xl md:text-2xl font-bold leading-tight;
   }
 
   .body-text {
-    @apply font-inter text-base md:text-lg leading-relaxed text-text-secondary;
+    @apply font-satoshi text-base md:text-lg leading-relaxed text-text-secondary;
   }
 
   .nav-link {
-    @apply font-inter font-medium text-xs uppercase tracking-widest text-white/80 hover:text-gold transition-colors duration-300;
+    @apply font-satoshi font-medium text-xs uppercase tracking-widest text-white/80 hover:text-gold transition-colors duration-300;
   }
 
   .btn-gold {
-    @apply inline-flex items-center gap-2 px-8 py-4 bg-gold text-navy font-inter font-semibold text-sm uppercase tracking-widest
-    hover:bg-gold-light transition-all duration-500 ease-out;
+    @apply inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-satoshi font-medium text-sm
+    border border-white/30 rounded-pill hover:bg-gold/20 hover:border-gold/50 hover:text-gold transition-all duration-500 ease-out;
   }
 
   .btn-gold-outline {
-    @apply inline-flex items-center gap-2 px-8 py-4 border border-gold text-gold font-inter font-semibold text-sm uppercase tracking-widest
-    hover:bg-gold hover:text-navy transition-all duration-500 ease-out;
+    @apply inline-flex items-center gap-2 px-8 py-4 border border-gold/40 text-gold font-satoshi font-medium text-sm
+    rounded-pill hover:bg-gold/10 hover:border-gold transition-all duration-500 ease-out;
   }
 
   .card-luxury {
-    @apply bg-ocean/50 backdrop-blur-sm border border-white/5 overflow-hidden
+    @apply bg-card/80 backdrop-blur-card border border-white/5 overflow-hidden rounded-card
     hover:border-gold/20 transition-all duration-700 ease-out;
   }
 
-  .divider-gold {
-    @apply w-16 h-px bg-gold;
+  .card-luxury-lg {
+    @apply bg-card/80 backdrop-blur-card border border-white/5 overflow-hidden rounded-card-lg
+    hover:border-gold/20 transition-all duration-700 ease-out;
   }
-}
 
-.page-transition-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
+  .glow-orb {
+    @apply absolute rounded-full blur-[80px] pointer-events-none;
+    background-color: rgba(109, 87, 50, 0.5);
+  }
 
-.page-transition-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  .section-gradient {
+    background: radial-gradient(50% 50% at 50% 50%, var(--primary-light) 0%, var(--primary-dark) 100%);
+  }
+
+  .section-gradient-alt {
+    background: radial-gradient(50% 75% at 50% 50%, var(--accent) 0%, #080f0f 100%);
+  }
+
+  .gold-border-gradient {
+    background: linear-gradient(90deg, rgba(255, 216, 162, 0.1) 0%, #ffd8a2 50.9%, rgba(255, 216, 162, 0.1) 100%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

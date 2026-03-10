@@ -143,12 +143,12 @@ export default function ExperiencesPage() {
           />
         </motion.div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/30" />
+        <div className="absolute inset-0 bg-primary/30" />
         <div className="relative z-10 section-padding max-w-7xl mx-auto w-full pt-32">
           <SectionLabel>Curated Experiences</SectionLabel>
           <FadeIn delay={0.1}>
             <h1 className="heading-xl mb-6 max-w-4xl">
-              Extraordinary <span className="italic text-gold">Experiences</span>
+              Extraordinary <span className="text-gold">Experiences</span>
               <br />
               Await
             </h1>
@@ -160,12 +160,14 @@ export default function ExperiencesPage() {
             </p>
           </FadeIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary to-transparent" />
       </section>
 
       {/* Filter + Grid */}
-      <section className="py-20 md:py-28 bg-navy">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="relative overflow-hidden py-20 md:py-28 bg-primary">
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -bottom-40 -right-40 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto section-padding relative z-10">
           {/* Filters */}
           <FadeIn>
             <div className="flex flex-wrap gap-3 mb-14 justify-center">
@@ -173,10 +175,10 @@ export default function ExperiencesPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-3 font-inter text-xs uppercase tracking-ultra border transition-all duration-300 ${
+                  className={`px-6 py-3 font-satoshi text-xs uppercase tracking-ultra border transition-all duration-300 ${
                     activeCategory === cat
-                      ? 'bg-gold text-navy border-gold'
-                      : 'border-white/15 text-text-secondary hover:border-gold/40 hover:text-gold'
+                      ? 'bg-gold text-primary border-gold'
+                      : 'border-white/10 text-text-secondary hover:border-gold/40 hover:text-gold'
                   }`}
                 >
                   {cat}
@@ -202,28 +204,28 @@ export default function ExperiencesPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
                 >
-                  <div className="card-luxury group h-full flex flex-col">
+                  <div className="card-luxury rounded-card group h-full flex flex-col">
                     {/* Image */}
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-card">
                       <img
                         src={exp.image}
                         alt={exp.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-transparent" />
                       <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 bg-gold/90 text-navy text-[10px] uppercase tracking-widest font-semibold font-inter">
+                        <span className="px-3 py-1 bg-gold/90 text-primary text-[10px] uppercase tracking-widest font-semibold font-satoshi">
                           {exp.category}
                         </span>
                       </div>
-                      <div className="absolute bottom-4 right-4 w-10 h-10 border border-white/20 flex items-center justify-center bg-navy/40 backdrop-blur-sm">
+                      <div className="absolute bottom-4 right-4 w-10 h-10 border border-white/20 flex items-center justify-center bg-primary/40 backdrop-blur-sm rounded-card">
                         <exp.icon size={18} className="text-gold" strokeWidth={1.5} />
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="p-6 md:p-8 flex flex-col flex-1">
-                      <h3 className="font-playfair text-2xl font-light text-white mb-3 group-hover:text-gold transition-colors duration-300">
+                      <h3 className="font-satoshi text-2xl font-bold text-white mb-3 group-hover:text-gold transition-colors duration-300">
                         {exp.title}
                       </h3>
                       <p className="text-text-secondary text-sm leading-relaxed mb-6 flex-1">
@@ -247,13 +249,13 @@ export default function ExperiencesPage() {
                             <Clock size={12} />
                             {exp.duration}
                           </span>
-                          <span className="text-gold font-inter font-semibold text-sm">
+                          <span className="text-gold font-satoshi font-semibold text-sm">
                             From {exp.price}
                           </span>
                         </div>
                         <Link
                           href="/contact"
-                          className="text-gold text-xs uppercase tracking-wider font-inter flex items-center gap-1 hover:gap-2 transition-all duration-300"
+                          className="text-gold text-xs uppercase tracking-wider font-satoshi flex items-center gap-1 hover:gap-2 transition-all duration-300"
                         >
                           Enquire
                           <ArrowUpRight size={12} />
@@ -269,13 +271,15 @@ export default function ExperiencesPage() {
       </section>
 
       {/* Luxury Features */}
-      <section className="py-24 md:py-32 bg-ocean/30">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="relative overflow-hidden py-24 md:py-32 section-gradient">
+        <div className="absolute -top-32 -right-32 w-[420px] h-[420px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-[350px] h-[350px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto section-padding relative z-10">
           <div className="text-center mb-16">
             <SectionLabel className="text-center">The INTERNITY Standard</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg">
-                Unparalleled <span className="italic text-gold">Service</span>
+                Unparalleled <span className="text-gold">Service</span>
               </h2>
             </FadeIn>
           </div>
@@ -283,7 +287,7 @@ export default function ExperiencesPage() {
             {luxuryFeatures.map((feat) => (
               <StaggerItem key={feat.title}>
                 <div className="text-center group">
-                  <div className="w-16 h-16 mx-auto mb-6 border border-gold/30 flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
+                  <div className="w-16 h-16 mx-auto mb-6 border border-gold/30 rounded-card flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
                     <feat.icon className="text-gold" size={24} strokeWidth={1.2} />
                   </div>
                   <h3 className="heading-sm mb-4">{feat.title}</h3>
@@ -297,17 +301,19 @@ export default function ExperiencesPage() {
       </section>
 
       {/* Full-Width CTA */}
-      <section className="relative py-28 md:py-36 overflow-hidden">
+      <section className="relative overflow-hidden py-28 md:py-36">
         <div className="absolute inset-0">
           <img src="/sequence/final_055.jpg" alt="CTA background" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/40" />
+        <div className="absolute inset-0 bg-primary/40" />
+        <div className="absolute -top-24 -left-24 w-[350px] h-[350px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-[350px] h-[350px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="relative z-10 section-padding max-w-4xl mx-auto text-center">
           <SectionLabel className="text-center">Start Planning</SectionLabel>
           <FadeIn delay={0.1}>
             <h2 className="heading-lg mb-6">
-              Your Perfect Journey <span className="italic text-gold">Awaits</span>
+              Your Perfect Journey <span className="text-gold">Awaits</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>

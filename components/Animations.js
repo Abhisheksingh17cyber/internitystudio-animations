@@ -162,7 +162,7 @@ export function GoldDivider({ className = '' }) {
 export function SectionLabel({ children, className = '' }) {
   return (
     <FadeIn>
-      <p className={`font-inter text-xs uppercase tracking-ultra text-gold mb-6 ${className}`}>
+      <p className={`font-satoshi text-xs uppercase tracking-ultra text-gold mb-6 ${className}`}>
         {children}
       </p>
     </FadeIn>

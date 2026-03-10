@@ -81,7 +81,8 @@ export default function AboutPage() {
           />
         </motion.div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/30" />
+        <div className="absolute inset-0 bg-primary/30" />
+        <div className="glow-orb absolute top-20 right-20 w-72 h-72 opacity-20" />
 
         <div className="relative z-10 section-padding max-w-7xl mx-auto w-full pt-32">
           <SectionLabel>Our Story</SectionLabel>
@@ -89,7 +90,7 @@ export default function AboutPage() {
             <h1 className="heading-xl mb-6 max-w-4xl">
               The Soul Behind
               <br />
-              <span className="italic text-gold">INTERNITY</span>
+              <span className="text-gold">INTERNITY</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -99,11 +100,12 @@ export default function AboutPage() {
             </p>
           </FadeIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary to-transparent" />
       </section>
 
       {/* Origin Story */}
-      <section className="py-24 md:py-36 bg-navy">
+      <section className="relative py-24 md:py-36 bg-primary">
+        <div className="glow-orb absolute bottom-10 left-10 w-64 h-64 opacity-10" />
         <div className="max-w-7xl mx-auto section-padding">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div>
@@ -112,7 +114,7 @@ export default function AboutPage() {
                 <h2 className="heading-lg mb-8">
                   A Legacy of
                   <br />
-                  <span className="italic text-gold">Extraordinary</span> Travel
+                  <span className="text-gold">Extraordinary</span> Travel
                 </h2>
               </FadeIn>
               <FadeIn delay={0.2}>
@@ -145,7 +147,7 @@ export default function AboutPage() {
 
             <FadeIn delay={0.3} direction="right">
               <div className="relative">
-                <div className="aspect-[4/5] overflow-hidden">
+                <div className="aspect-[4/5] overflow-hidden rounded-card">
                   <img
                     src="/sequence/final_007.jpg"
                     alt="The INTERNITY Story"
@@ -153,9 +155,9 @@ export default function AboutPage() {
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-40 h-40 border border-gold/20" />
-                <div className="absolute -top-6 -right-6 p-6 bg-ocean border border-white/5">
-                  <p className="font-playfair text-4xl font-light text-gold mb-1">12+</p>
-                  <p className="font-inter text-xs uppercase tracking-ultra text-text-secondary">
+                <div className="absolute -top-6 -right-6 p-6 bg-card border border-white/5">
+                  <p className="font-satoshi text-4xl font-bold text-gold mb-1">12+</p>
+                  <p className="font-satoshi text-xs uppercase tracking-ultra text-text-secondary">
                     Years of<br />Excellence
                   </p>
                 </div>
@@ -166,7 +168,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="bg-ocean/30 border-y border-white/5">
+      <section className="bg-card/30 border-y border-white/5">
         <div className="max-w-7xl mx-auto section-padding py-16 md:py-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
@@ -177,10 +179,10 @@ export default function AboutPage() {
             ].map((stat, i) => (
               <FadeIn key={stat.label} delay={i * 0.1}>
                 <div className="text-center">
-                  <p className="font-playfair text-4xl md:text-5xl font-light text-white mb-2">
+                  <p className="font-satoshi text-4xl md:text-5xl font-bold text-white mb-2">
                     <CountUp end={stat.number} suffix={stat.suffix} />
                   </p>
-                  <p className="font-inter text-xs uppercase tracking-ultra text-text-secondary">
+                  <p className="font-satoshi text-xs uppercase tracking-ultra text-text-secondary">
                     {stat.label}
                   </p>
                 </div>
@@ -191,24 +193,25 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-24 md:py-36 bg-navy">
+      <section className="relative py-24 md:py-36 bg-primary">
+        <div className="glow-orb absolute top-1/2 right-0 w-96 h-96 opacity-10 -translate-y-1/2" />
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Our Values</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg">
-                Guided by <span className="italic text-gold">Principle</span>
+                Guided by <span className="text-gold">Principle</span>
               </h2>
             </FadeIn>
           </div>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" staggerDelay={0.12}>
             {values.map((value) => (
               <StaggerItem key={value.title}>
-                <div className="card-luxury p-8 text-center h-full group hover:bg-ocean/80 transition-all duration-500">
+                <div className="card-luxury p-8 text-center h-full group hover:bg-card/80 transition-all duration-500">
                   <div className="w-14 h-14 mx-auto mb-6 border border-gold/30 flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
                     <value.icon className="text-gold" size={22} strokeWidth={1.2} />
                   </div>
-                  <h3 className="font-playfair text-xl font-light text-white mb-3">{value.title}</h3>
+                  <h3 className="font-satoshi text-xl font-bold text-white mb-3">{value.title}</h3>
                   <GoldDivider className="mx-auto mb-4" />
                   <p className="text-text-secondary text-sm leading-relaxed">{value.description}</p>
                 </div>
@@ -219,13 +222,14 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-24 md:py-36 bg-ocean/30">
+      <section className="relative py-24 md:py-36 bg-card/30">
+        <div className="glow-orb absolute top-10 left-1/4 w-80 h-80 opacity-10" />
         <div className="max-w-4xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Our Journey</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg">
-                Milestones of <span className="italic text-gold">Excellence</span>
+                Milestones of <span className="text-gold">Excellence</span>
               </h2>
             </FadeIn>
           </div>
@@ -246,8 +250,8 @@ export default function AboutPage() {
                   <div className={`ml-12 md:ml-0 md:w-1/2 ${
                     i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'
                   }`}>
-                    <span className="font-playfair text-3xl font-light text-gold">{milestone.year}</span>
-                    <h3 className="font-playfair text-xl font-light text-white mt-2 mb-2">{milestone.title}</h3>
+                    <span className="font-satoshi text-3xl font-bold text-gold">{milestone.year}</span>
+                    <h3 className="font-satoshi text-xl font-bold text-white mt-2 mb-2">{milestone.title}</h3>
                     <p className="text-text-secondary text-sm leading-relaxed">{milestone.description}</p>
                   </div>
                 </div>
@@ -258,13 +262,14 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-24 md:py-36 bg-navy">
+      <section className="relative py-24 md:py-36 bg-primary">
+        <div className="glow-orb absolute bottom-20 right-20 w-72 h-72 opacity-10" />
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Our Team</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg">
-                The Visionaries <span className="italic text-gold">Behind</span>
+                The Visionaries <span className="text-gold">Behind</span>
                 <br />
                 Every Journey
               </h2>
@@ -275,7 +280,7 @@ export default function AboutPage() {
             {team.map((member) => (
               <StaggerItem key={member.name}>
                 <div className="card-luxury group">
-                  <div className="aspect-[3/4] overflow-hidden">
+                  <div className="aspect-[3/4] overflow-hidden rounded-card">
                     <img
                       src={member.image}
                       alt={member.name}
@@ -283,8 +288,8 @@ export default function AboutPage() {
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="font-playfair text-xl font-light text-white mb-1">{member.name}</h3>
-                    <p className="text-gold text-xs uppercase tracking-wider font-inter mb-3">{member.role}</p>
+                    <h3 className="font-satoshi text-xl font-bold text-white mb-1">{member.name}</h3>
+                    <p className="text-gold text-xs uppercase tracking-wider font-satoshi mb-3">{member.role}</p>
                     <p className="text-text-secondary text-sm leading-relaxed">{member.description}</p>
                   </div>
                 </div>
@@ -300,12 +305,13 @@ export default function AboutPage() {
           <img src="/sequence/final_052.jpg" alt="Awards" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-navy/50" />
+        <div className="absolute inset-0 bg-primary/50" />
+        <div className="glow-orb absolute top-1/2 left-1/2 w-96 h-96 opacity-15 -translate-x-1/2 -translate-y-1/2" />
         <div className="relative z-10 section-padding max-w-4xl mx-auto text-center">
           <SectionLabel className="text-center">Recognition</SectionLabel>
           <FadeIn delay={0.1}>
             <h2 className="heading-lg mb-8">
-              Trusted by <span className="italic text-gold">Discerning</span>
+              Trusted by <span className="text-gold">Discerning</span>
               <br />
               Travelers Worldwide
             </h2>
@@ -318,7 +324,7 @@ export default function AboutPage() {
                 'Forbes Luxury List',
                 'Travel + Leisure A-List',
               ].map((award) => (
-                <div key={award} className="flex items-center gap-2 text-white/60 text-sm font-inter">
+                <div key={award} className="flex items-center gap-2 text-white/60 text-sm font-satoshi">
                   <Award size={16} className="text-gold" />
                   {award}
                 </div>

@@ -88,16 +88,16 @@ export default function Home() {
       <HeroSequence />
 
       {/* Stats Section */}
-      <section className="relative z-10 bg-navy border-y border-white/5">
+      <section className="relative z-10 bg-primary-dark border-y border-white/5">
         <div className="max-w-7xl mx-auto section-padding py-16 md:py-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {stats.map((stat, i) => (
               <FadeIn key={stat.label} delay={i * 0.1}>
                 <div className="text-center">
-                  <p className="font-playfair text-4xl md:text-5xl font-light text-white mb-2">
+                  <p className="font-satoshi text-4xl md:text-5xl font-bold text-white mb-2">
                     <CountUp end={stat.number} suffix={stat.suffix} />
                   </p>
-                  <p className="font-inter text-xs uppercase tracking-ultra text-text-secondary">
+                  <p className="font-satoshi text-xs uppercase tracking-ultra text-text-secondary">
                     {stat.label}
                   </p>
                 </div>
@@ -108,7 +108,9 @@ export default function Home() {
       </section>
 
       {/* About Preview Section */}
-      <section className="relative py-24 md:py-36 bg-navy overflow-hidden">
+      <section className="relative py-24 md:py-36 bg-primary overflow-hidden">
+        {/* Glow orb */}
+        <div className="glow-orb w-[300px] h-[300px] top-[20%] right-[10%] opacity-20" />
         <div className="max-w-7xl mx-auto section-padding">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* Left Content */}
@@ -118,7 +120,7 @@ export default function Home() {
                 <h2 className="heading-lg mb-8">
                   Where Wanderlust
                   <br />
-                  Meets <span className="italic text-gold">Luxury</span>
+                  Meets <span className="text-gold">Luxury</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.2}>
@@ -156,14 +158,14 @@ export default function Home() {
               <FadeIn delay={0.3} direction="right">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-4">
-                    <div className="aspect-[3/4] overflow-hidden">
+                    <div className="aspect-[3/4] overflow-hidden rounded-card">
                       <img
                         src="/sequence/final_005.jpg"
                         alt="Luxury travel"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                       />
                     </div>
-                    <div className="aspect-square overflow-hidden">
+                    <div className="aspect-square overflow-hidden rounded-card">
                       <img
                         src="/sequence/final_015.jpg"
                         alt="Travel experience"
@@ -172,14 +174,14 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="space-y-4 pt-12">
-                    <div className="aspect-square overflow-hidden">
+                    <div className="aspect-square overflow-hidden rounded-card">
                       <img
                         src="/sequence/final_025.jpg"
                         alt="Destination"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                       />
                     </div>
-                    <div className="aspect-[3/4] overflow-hidden">
+                    <div className="aspect-[3/4] overflow-hidden rounded-card">
                       <img
                         src="/sequence/final_035.jpg"
                         alt="Adventure"
@@ -189,22 +191,19 @@ export default function Home() {
                   </div>
                 </div>
               </FadeIn>
-              {/* Decorative Element */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 border border-gold/20" />
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 border border-gold/10" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Featured Destinations */}
-      <section className="py-24 md:py-36 bg-ocean/30">
+      <section className="py-24 md:py-36 section-gradient">
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Featured Destinations</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg mb-6">
-                Handpicked <span className="italic text-gold">Wonders</span>
+                Handpicked <span className="text-gold">Wonders</span>
                 <br />
                 of the World
               </h2>
@@ -221,29 +220,29 @@ export default function Home() {
             {featuredDestinations.map((dest, i) => (
               <StaggerItem key={dest.title}>
                 <Link href="/destinations" className="group block card-luxury">
-                  <div className="relative aspect-[3/4] overflow-hidden">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-card">
                     <img
                       src={dest.image}
                       alt={dest.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/90 via-primary-dark/20 to-transparent" />
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-gold/90 text-navy text-[10px] uppercase tracking-widest font-inter font-semibold">
+                      <span className="px-3 py-1.5 bg-gold/90 text-primary text-[10px] uppercase tracking-widest font-satoshi font-bold rounded-full">
                         {dest.tag}
                       </span>
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                      <p className="text-gold text-xs uppercase tracking-ultra mb-2 font-inter">
+                      <p className="text-gold text-xs uppercase tracking-ultra mb-2 font-satoshi">
                         {dest.subtitle}
                       </p>
-                      <h3 className="font-playfair text-2xl md:text-3xl font-light text-white mb-3">
+                      <h3 className="font-satoshi text-2xl md:text-3xl font-bold text-white mb-3">
                         {dest.title}
                       </h3>
                       <p className="text-text-secondary text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         {dest.description}
                       </p>
-                      <div className="flex items-center gap-2 mt-4 text-gold text-xs uppercase tracking-widest font-inter">
+                      <div className="flex items-center gap-2 mt-4 text-gold text-xs uppercase tracking-widest font-satoshi">
                         <span>Explore</span>
                         <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                       </div>
@@ -266,8 +265,9 @@ export default function Home() {
       </section>
 
       {/* Experiences Section */}
-      <section className="py-24 md:py-36 bg-navy">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+        <div className="glow-orb w-[250px] h-[250px] bottom-[10%] left-[5%] opacity-20" />
+        <div className="max-w-7xl mx-auto section-padding relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             <div>
               <SectionLabel>Curated Experiences</SectionLabel>
@@ -275,7 +275,7 @@ export default function Home() {
                 <h2 className="heading-lg mb-8">
                   Journeys Crafted
                   <br />
-                  for the <span className="italic text-gold">Extraordinary</span>
+                  for the <span className="text-gold">Extraordinary</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.2}>
@@ -299,12 +299,13 @@ export default function Home() {
             <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6" staggerDelay={0.15}>
               {experiences.map((exp) => (
                 <StaggerItem key={exp.title}>
-                  <div className="card-luxury p-6 md:p-8 group hover:bg-ocean/80 transition-all duration-500">
-                    <exp.icon className="text-gold mb-5" size={28} strokeWidth={1.2} />
-                    <h3 className="font-playfair text-xl font-light text-white mb-3">
+                  <div className="card-luxury p-6 md:p-8 group hover:bg-card-hover transition-all duration-500 relative overflow-hidden">
+                    <div className="glow-orb w-[100px] h-[100px] -top-[50px] -right-[50px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
+                    <exp.icon className="text-gold mb-5 relative z-10" size={28} strokeWidth={1.2} />
+                    <h3 className="font-satoshi text-xl font-bold text-white mb-3 relative z-10">
                       {exp.title}
                     </h3>
-                    <p className="text-text-secondary text-sm leading-relaxed">
+                    <p className="text-text-secondary text-sm leading-relaxed relative z-10">
                       {exp.description}
                     </p>
                   </div>
@@ -328,15 +329,15 @@ export default function Home() {
         <div className="relative z-10 h-full flex items-center justify-center text-center section-padding">
           <div>
             <FadeIn>
-              <p className="font-inter text-xs uppercase tracking-ultra text-gold mb-4">
+              <p className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-4">
                 A Promise of Excellence
               </p>
             </FadeIn>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg max-w-3xl mx-auto">
-                Every Detail <span className="italic">Matters.</span>
+                Every Detail <span className="text-gold">Matters.</span>
                 <br />
-                Every Moment <span className="italic text-gold">Counts.</span>
+                Every Moment <span className="text-gold">Counts.</span>
               </h2>
             </FadeIn>
           </div>
@@ -344,13 +345,14 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 md:py-36 bg-navy">
-        <div className="max-w-7xl mx-auto section-padding">
+      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+        <div className="glow-orb w-[200px] h-[200px] top-[30%] left-1/2 -translate-x-1/2 opacity-15" />
+        <div className="max-w-7xl mx-auto section-padding relative z-10">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Why INTERNITY</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg mb-6">
-                The <span className="italic text-gold">INTERNITY</span> Difference
+                The <span className="text-gold">INTERNITY</span> Difference
               </h2>
             </FadeIn>
           </div>
@@ -375,7 +377,7 @@ export default function Home() {
             ].map((item) => (
               <StaggerItem key={item.title}>
                 <div className="text-center group">
-                  <div className="w-16 h-16 mx-auto mb-6 border border-gold/30 flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
+                  <div className="w-16 h-16 mx-auto mb-6 border border-gold/30 rounded-card flex items-center justify-center group-hover:bg-gold/5 transition-colors duration-500">
                     <item.icon className="text-gold" size={24} strokeWidth={1.2} />
                   </div>
                   <h3 className="heading-sm mb-4">{item.title}</h3>
@@ -388,13 +390,13 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 md:py-36 bg-ocean/30">
+      <section className="py-24 md:py-36 section-gradient-alt">
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Testimonials</SectionLabel>
             <FadeIn delay={0.1}>
               <h2 className="heading-lg">
-                Words from Our <span className="italic text-gold">Travelers</span>
+                Words from Our <span className="text-gold">Travelers</span>
               </h2>
             </FadeIn>
           </div>
@@ -402,19 +404,20 @@ export default function Home() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {testimonials.map((t) => (
               <StaggerItem key={t.author}>
-                <div className="card-luxury p-8 md:p-10 h-full flex flex-col">
+                <div className="card-luxury p-8 md:p-10 h-full flex flex-col relative overflow-hidden">
+                  <div className="glow-orb w-[120px] h-[120px] -bottom-[60px] -right-[60px] opacity-20" />
                   {/* Stars */}
-                  <div className="flex gap-1 mb-6">
+                  <div className="flex gap-1 mb-6 relative z-10">
                     {Array(t.rating).fill(null).map((_, i) => (
                       <Star key={i} size={14} className="fill-gold text-gold" />
                     ))}
                   </div>
-                  <blockquote className="text-white/90 text-base leading-relaxed italic mb-8 flex-1 font-playfair font-light">
+                  <blockquote className="text-white/90 text-base leading-relaxed mb-8 flex-1 font-satoshi relative z-10">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
-                  <div>
-                    <p className="text-white font-inter font-medium text-sm">{t.author}</p>
-                    <p className="text-gold text-xs uppercase tracking-wider mt-1 font-inter">{t.location}</p>
+                  <div className="relative z-10">
+                    <p className="text-white font-satoshi font-medium text-sm">{t.author}</p>
+                    <p className="text-gold text-xs uppercase tracking-wider mt-1 font-satoshi">{t.location}</p>
                   </div>
                 </div>
               </StaggerItem>
@@ -424,12 +427,13 @@ export default function Home() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 md:py-36 bg-navy">
-        <div className="max-w-4xl mx-auto section-padding text-center">
+      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+        <div className="glow-orb w-[250px] h-[250px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15" />
+        <div className="max-w-4xl mx-auto section-padding text-center relative z-10">
           <SectionLabel className="text-center">Stay Inspired</SectionLabel>
           <FadeIn delay={0.1}>
             <h2 className="heading-lg mb-6">
-              Join the <span className="italic text-gold">INTERNITY</span> Circle
+              Join the <span className="text-gold">INTERNITY</span> Circle
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -443,7 +447,7 @@ export default function Home() {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="flex-1 px-6 py-4 bg-ocean/50 border border-white/10 text-white placeholder:text-text-secondary/50 font-inter text-sm
+                className="flex-1 px-6 py-4 bg-card/80 backdrop-blur-sm border border-white/10 text-white placeholder:text-text-secondary/50 font-satoshi text-sm rounded-pill
                 focus:outline-none focus:border-gold/40 transition-colors duration-300"
               />
               <button type="submit" className="btn-gold text-xs whitespace-nowrap">

@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top Bar */}
-      <div className="hidden lg:block fixed top-0 left-0 right-0 z-[60] bg-navy/90 backdrop-blur-sm border-b border-white/5">
+      <div className="hidden lg:block fixed top-0 left-0 right-0 z-[60] bg-primary-dark/90 backdrop-blur-sm border-b border-white/5">
         <div className="max-w-7xl mx-auto px-8 py-2 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <a href="tel:+1234567890" className="flex items-center gap-2 text-text-secondary text-xs hover:text-gold transition-colors">
@@ -50,7 +50,7 @@ export default function Navbar() {
               <span>info@internitytours.com</span>
             </a>
           </div>
-          <p className="text-text-secondary text-xs tracking-wider">
+          <p className="text-text-secondary text-xs tracking-wider font-satoshi">
             Crafting Extraordinary Journeys Since 2024
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function Navbar() {
       <motion.header
         className={`fixed left-0 right-0 z-50 transition-all duration-700 ${
           isScrolled
-            ? 'top-0 bg-navy/95 backdrop-blur-md border-b border-white/5 py-4'
+            ? 'top-0 bg-primary-dark/95 backdrop-blur-md border-b border-white/5 py-4'
             : 'lg:top-[36px] top-0 bg-transparent py-6'
         }`}
       >
@@ -68,10 +68,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="relative z-10">
             <div className="flex flex-col items-start">
-              <span className="font-playfair text-2xl md:text-3xl font-light tracking-wider text-white">
+              <span className="font-satoshi text-2xl md:text-3xl font-bold tracking-wider text-white">
                 INTERNITY
               </span>
-              <span className="font-inter text-[10px] uppercase tracking-ultra text-gold mt-[-2px]">
+              <span className="font-satoshi text-[10px] uppercase tracking-ultra text-gold mt-[-2px]">
                 Tours
               </span>
             </div>
@@ -113,7 +113,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 bg-navy/98 backdrop-blur-lg flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-primary/98 backdrop-blur-lg flex flex-col items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => (
@@ -127,7 +127,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileOpen(false)}
-                    className="font-playfair text-3xl font-light text-white hover:text-gold transition-colors duration-300"
+                    className="font-satoshi text-3xl font-bold text-white hover:text-gold transition-colors duration-300"
                   >
                     {link.name}
                   </Link>

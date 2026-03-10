@@ -1,14 +1,7 @@
 'use client';
 
-import { useEffect, useRef, createContext, useContext } from 'react';
+import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
-
-const LenisContext = createContext(null);
-export const useLenis = () => useContext(LenisContext);
-
-// Global reference so non-context components (like HeroSequence) can access it
-let globalLenis = null;
-export const getGlobalLenis = () => globalLenis;
 
 export default function SmoothScroll({ children }) {
   const lenisRef = useRef(null);
@@ -24,7 +17,6 @@ export default function SmoothScroll({ children }) {
     });
 
     lenisRef.current = lenis;
-    globalLenis = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -35,13 +27,8 @@ export default function SmoothScroll({ children }) {
 
     return () => {
       lenis.destroy();
-      globalLenis = null;
     };
   }, []);
 
-  return (
-    <LenisContext.Provider value={lenisRef}>
-      {children}
-    </LenisContext.Provider>
-  );
+  return <>{children}</>;
 }

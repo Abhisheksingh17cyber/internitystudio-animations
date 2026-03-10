@@ -18,7 +18,6 @@ export default function HeroSequence() {
   const [isLoaded, setIsLoaded] = useState(false);
   const animFrameRef = useRef(null);
 
-  // Draw a frame onto the canvas with cover-fit behavior
   const drawFrame = useCallback((index) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -31,7 +30,6 @@ export default function HeroSequence() {
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
-    // Cover-fit: scale image to fill canvas, crop overflow
     const scale = Math.max(cw / iw, ch / ih);
     const sw = iw * scale;
     const sh = ih * scale;
@@ -42,7 +40,6 @@ export default function HeroSequence() {
     ctx.drawImage(img, sx, sy, sw, sh);
   }, []);
 
-  // Resize canvas to viewport
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -58,7 +55,6 @@ export default function HeroSequence() {
     const images = new Array(TOTAL_FRAMES);
     imagesRef.current = images;
 
-    // Load critical first frames immediately, rest progressively
     const loadImage = (i) => {
       return new Promise((resolve) => {
         const img = new Image();
@@ -69,29 +65,25 @@ export default function HeroSequence() {
           resolve();
         };
         img.onerror = () => {
-          resolve(); // Don't block on failed loads
+          resolve();
         };
         images[i] = img;
       });
     };
 
-    // Load first frame immediately for fast initial display
     loadImage(0).then(() => {
       setIsLoaded(true);
       resizeCanvas();
       drawFrame(0);
     });
 
-    // Load remaining frames in batches for progressive availability
     const loadRemaining = async () => {
-      // Load every 4th frame first for coarse scrubbing
       const coarseFrames = [];
       for (let i = 1; i < TOTAL_FRAMES; i += 4) {
         coarseFrames.push(loadImage(i));
       }
       await Promise.all(coarseFrames);
 
-      // Then load all remaining frames
       const remaining = [];
       for (let i = 1; i < TOTAL_FRAMES; i++) {
         if (!loadedSetRef.current.has(i)) {
@@ -103,9 +95,8 @@ export default function HeroSequence() {
 
     loadRemaining();
 
-    // Scroll handler using native scroll (works with Lenis since Lenis fires native scroll events)
     const handleScroll = () => {
-      if (animFrameRef.current) return; // Throttle to rAF
+      if (animFrameRef.current) return;
       animFrameRef.current = requestAnimationFrame(() => {
         animFrameRef.current = null;
         const container = containerRef.current;
@@ -122,11 +113,9 @@ export default function HeroSequence() {
         if (frameIndex !== currentFrameRef.current) {
           currentFrameRef.current = frameIndex;
 
-          // Find nearest loaded frame if current isn't loaded
           if (loadedSetRef.current.has(frameIndex)) {
             drawFrame(frameIndex);
           } else {
-            // Find closest loaded frame
             for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
               if (loadedSetRef.current.has(frameIndex - offset) && frameIndex - offset >= 0) {
                 drawFrame(frameIndex - offset);
@@ -165,25 +154,29 @@ export default function HeroSequence() {
         {/* Overlay gradient */}
         <div className="absolute inset-0 hero-overlay" />
 
+        {/* Glow orbs */}
+        <div className="glow-orb w-[200px] h-[200px] top-[20%] left-[10%] opacity-20" />
+        <div className="glow-orb w-[150px] h-[150px] bottom-[20%] right-[15%] opacity-15" />
+
         {/* Loading state */}
         {!isLoaded && (
-          <div className="absolute inset-0 bg-navy flex items-center justify-center">
+          <div className="absolute inset-0 bg-primary flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
               <div className="w-12 h-12 border-2 border-gold border-t-transparent rounded-full animate-spin" />
-              <p className="text-text-secondary text-sm tracking-wider uppercase">Loading Experience</p>
+              <p className="text-text-secondary text-sm tracking-wider uppercase font-satoshi">Loading Experience</p>
             </div>
           </div>
         )}
 
         {/* Hero Content */}
         <div className="relative z-10 text-center section-padding max-w-5xl mx-auto">
-          <p className="font-inter text-xs uppercase tracking-ultra text-gold mb-6 opacity-90">
+          <p className="font-satoshi text-xs uppercase tracking-ultra text-gold mb-6 opacity-90">
             Luxury Travel Redefined
           </p>
           <h1 className="heading-xl mb-6">
             Discover the World&apos;s
             <br />
-            Most <span className="italic text-gold">Extraordinary</span>
+            Most <span className="text-gold">Extraordinary</span>
             <br />
             Destinations
           </h1>
@@ -202,7 +195,7 @@ export default function HeroSequence() {
 
           {/* Scroll indicator */}
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-            <span className="text-text-secondary text-xs uppercase tracking-widest">Scroll to Explore</span>
+            <span className="text-text-secondary text-xs uppercase tracking-widest font-satoshi">Scroll to Explore</span>
             <div className="w-px h-12 bg-gradient-to-b from-gold to-transparent" />
           </div>
         </div>

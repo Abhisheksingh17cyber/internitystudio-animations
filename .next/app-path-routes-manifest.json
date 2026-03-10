@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "/_not-found",
+  "/destinations/page": "/destinations",
   "/about/page": "/about",
   "/contact/page": "/contact",
-  "/destinations/page": "/destinations",
   "/experiences/page": "/experiences",
-  "/page": "/",
-  "/gallery/page": "/gallery"
+  "/gallery/page": "/gallery",
+  "/page": "/"
 }
