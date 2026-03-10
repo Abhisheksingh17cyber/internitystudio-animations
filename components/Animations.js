@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 
 export function FadeIn({ children, delay = 0, direction = 'up', className = '' }) {
   const ref = useRef(null);
@@ -74,46 +74,18 @@ export function StaggerItem({ children, className = '' }) {
 }
 
 export function ParallaxSection({ children, speed = 0.3, className = '' }) {
-  const wrapperRef = useRef(null);
-  const innerRef = useRef(null);
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const inner = innerRef.current;
-    if (!wrapper || !inner) return;
-    let rafId = null;
-
-    // Use scrollY + offsetTop to avoid feedback loop from transforms
-    const tick = () => {
-      const scrollY = window.scrollY || window.pageYOffset || 0;
-      const wrapperTop = wrapper.offsetTop;
-      const wrapperHeight = wrapper.offsetHeight;
-      const windowHeight = window.innerHeight;
-
-      // Check if wrapper is in viewport
-      const wrapperBottom = wrapperTop + wrapperHeight;
-      if (scrollY + windowHeight > wrapperTop && scrollY < wrapperBottom) {
-        // How far the section center is from viewport center
-        const sectionCenter = wrapperTop + wrapperHeight / 2;
-        const viewCenter = scrollY + windowHeight / 2;
-        const offset = (viewCenter - sectionCenter) * speed;
-        inner.style.transform = `translateY(${offset}px)`;
-      }
-
-      rafId = requestAnimationFrame(tick);
-    };
-
-    rafId = requestAnimationFrame(tick);
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [speed]);
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [speed * -100, speed * 100]);
 
   return (
-    <div ref={wrapperRef} className={className}>
-      <div ref={innerRef}>
+    <div ref={ref} className={className} style={{ overflow: 'hidden' }}>
+      <motion.div style={{ y }}>
         {children}
-      </div>
+      </motion.div>
     </div>
   );
 }

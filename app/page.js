@@ -318,7 +318,7 @@ export default function Home() {
 
       {/* Parallax Image Break */}
       <section className="relative z-20 h-[70vh] overflow-hidden">
-        <ParallaxSection speed={0.4} className="absolute inset-[-20%] overflow-hidden">
+        <ParallaxSection speed={0.5} className="absolute inset-[-15%]">
           <img
             src="/sequence/final_040.jpg"
             alt="Travel panorama"
