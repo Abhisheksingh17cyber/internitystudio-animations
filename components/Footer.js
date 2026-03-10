@@ -30,7 +30,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-dark border-t border-white/5">
+    <footer className="relative z-20 bg-primary-dark border-t border-white/5">
       {/* CTA Banner */}
       <section className="section-padding py-20 md:py-28 border-b border-white/5 relative overflow-hidden">
         <div className="glow-orb w-[200px] h-[200px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" />

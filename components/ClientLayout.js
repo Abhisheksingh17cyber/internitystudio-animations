@@ -8,7 +8,7 @@ export default function ClientLayout({ children }) {
   return (
     <SmoothScroll>
       <Navbar />
-      <main>{children}</main>
+      <main className="relative z-0">{children}</main>
       <Footer />
     </SmoothScroll>
   );

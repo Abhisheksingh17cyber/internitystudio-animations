@@ -88,7 +88,7 @@ export default function Home() {
       <HeroSequence />
 
       {/* Stats Section */}
-      <section className="relative z-10 bg-primary-dark border-y border-white/5">
+      <section className="relative z-20 bg-primary-dark border-y border-white/5">
         <div className="max-w-7xl mx-auto section-padding py-16 md:py-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {stats.map((stat, i) => (
@@ -108,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* About Preview Section */}
-      <section className="relative py-24 md:py-36 bg-primary overflow-hidden">
+      <section className="relative z-20 py-24 md:py-36 bg-primary overflow-hidden">
         {/* Glow orb */}
         <div className="glow-orb w-[300px] h-[300px] top-[20%] right-[10%] opacity-20" />
         <div className="max-w-7xl mx-auto section-padding">
@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* Featured Destinations */}
-      <section className="py-24 md:py-36 section-gradient">
+      <section className="relative z-20 py-24 md:py-36 section-gradient">
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Featured Destinations</SectionLabel>
@@ -265,7 +265,7 @@ export default function Home() {
       </section>
 
       {/* Experiences Section */}
-      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+      <section className="relative z-20 py-24 md:py-36 bg-primary overflow-hidden">
         <div className="glow-orb w-[250px] h-[250px] bottom-[10%] left-[5%] opacity-20" />
         <div className="max-w-7xl mx-auto section-padding relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
@@ -317,12 +317,12 @@ export default function Home() {
       </section>
 
       {/* Parallax Image Break */}
-      <section className="relative h-[60vh] overflow-hidden">
-        <ParallaxSection speed={0.5} className="absolute inset-0">
+      <section className="relative z-20 h-[70vh] overflow-hidden">
+        <ParallaxSection speed={0.4} className="absolute inset-[-20%] overflow-hidden">
           <img
             src="/sequence/final_040.jpg"
             alt="Travel panorama"
-            className="w-full h-[130%] object-cover"
+            className="w-full h-full object-cover"
           />
         </ParallaxSection>
         <div className="absolute inset-0 hero-overlay" />
@@ -345,7 +345,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+      <section className="relative z-20 py-24 md:py-36 bg-primary overflow-hidden">
         <div className="glow-orb w-[200px] h-[200px] top-[30%] left-1/2 -translate-x-1/2 opacity-15" />
         <div className="max-w-7xl mx-auto section-padding relative z-10">
           <div className="text-center mb-16 md:mb-20">
@@ -390,7 +390,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 md:py-36 section-gradient-alt">
+      <section className="relative z-20 py-24 md:py-36 section-gradient-alt">
         <div className="max-w-7xl mx-auto section-padding">
           <div className="text-center mb-16 md:mb-20">
             <SectionLabel className="text-center">Testimonials</SectionLabel>
@@ -427,7 +427,7 @@ export default function Home() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 md:py-36 bg-primary relative overflow-hidden">
+      <section className="relative z-20 py-24 md:py-36 bg-primary overflow-hidden">
         <div className="glow-orb w-[250px] h-[250px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15" />
         <div className="max-w-4xl mx-auto section-padding text-center relative z-10">
           <SectionLabel className="text-center">Stay Inspired</SectionLabel>

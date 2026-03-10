@@ -74,21 +74,32 @@ export function StaggerItem({ children, className = '' }) {
 }
 
 export function ParallaxSection({ children, speed = 0.3, className = '' }) {
-  const ref = useRef(null);
+  const wrapperRef = useRef(null);
+  const innerRef = useRef(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const wrapper = wrapperRef.current;
+    const inner = innerRef.current;
+    if (!wrapper || !inner) return;
     let rafId = null;
 
-    // Use continuous rAF loop instead of scroll events for Lenis compatibility
+    // Use scrollY + offsetTop to avoid feedback loop from transforms
     const tick = () => {
-      const rect = el.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const wrapperTop = wrapper.offsetTop;
+      const wrapperHeight = wrapper.offsetHeight;
       const windowHeight = window.innerHeight;
-      if (rect.bottom > 0 && rect.top < windowHeight) {
-        const scrolled = windowHeight - rect.top;
-        el.style.transform = `translateY(${scrolled * speed * -0.1}px)`;
+
+      // Check if wrapper is in viewport
+      const wrapperBottom = wrapperTop + wrapperHeight;
+      if (scrollY + windowHeight > wrapperTop && scrollY < wrapperBottom) {
+        // How far the section center is from viewport center
+        const sectionCenter = wrapperTop + wrapperHeight / 2;
+        const viewCenter = scrollY + windowHeight / 2;
+        const offset = (viewCenter - sectionCenter) * speed;
+        inner.style.transform = `translateY(${offset}px)`;
       }
+
       rafId = requestAnimationFrame(tick);
     };
 
@@ -99,8 +110,10 @@ export function ParallaxSection({ children, speed = 0.3, className = '' }) {
   }, [speed]);
 
   return (
-    <div ref={ref} className={className}>
-      {children}
+    <div ref={wrapperRef} className={className}>
+      <div ref={innerRef}>
+        {children}
+      </div>
     </div>
   );
 }

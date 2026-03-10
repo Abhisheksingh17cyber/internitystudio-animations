@@ -73,20 +73,19 @@ export default function HeroSequence() {
       });
     };
 
-    // Load first frame, then draw it after a brief delay to ensure canvas is ready
+    // Load first frame immediately
     loadImage(0).then(() => {
       isLoadedRef.current = true;
       setIsLoaded(true);
-      // Use rAF to ensure the DOM has updated before drawing
-      requestAnimationFrame(() => {
+      // Wait for DOM to settle then draw
+      setTimeout(() => {
         resizeCanvas();
         drawFrame(0);
-        // Double-draw after another frame to catch any React re-render timing issues
         requestAnimationFrame(() => {
           resizeCanvas();
           drawFrame(0);
         });
-      });
+      }, 50);
     });
 
     // Load remaining frames progressively
@@ -108,9 +107,7 @@ export default function HeroSequence() {
 
     loadRemaining();
 
-    // Use a continuous rAF loop to poll scroll position every frame.
-    // This works reliably with Lenis smooth scroll (which may not fire
-    // native scroll events on every interpolated position).
+    // Use window.scrollY directly (works with Lenis which uses native scroll)
     let lastWidth = window.innerWidth;
     let lastHeight = window.innerHeight;
 
@@ -122,32 +119,37 @@ export default function HeroSequence() {
         resizeCanvas();
       }
 
-      // Calculate scroll-driven frame
+      // Calculate scroll-driven frame using scrollY + offsetTop
       const container = containerRef.current;
       if (container && isLoadedRef.current) {
-        const rect = container.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const containerTop = container.offsetTop;
         const containerHeight = container.offsetHeight;
         const windowHeight = window.innerHeight;
-        const scrolled = -rect.top;
+
+        const scrolled = scrollY - containerTop;
         const totalScrollable = containerHeight - windowHeight;
-        const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-        const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
 
-        if (frameIndex !== currentFrameRef.current) {
-          currentFrameRef.current = frameIndex;
+        if (totalScrollable > 0) {
+          const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+          const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
 
-          if (loadedSetRef.current.has(frameIndex)) {
-            drawFrame(frameIndex);
-          } else {
-            // Find nearest loaded frame
-            for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
-              if (loadedSetRef.current.has(frameIndex - offset) && frameIndex - offset >= 0) {
-                drawFrame(frameIndex - offset);
-                break;
-              }
-              if (loadedSetRef.current.has(frameIndex + offset) && frameIndex + offset < TOTAL_FRAMES) {
-                drawFrame(frameIndex + offset);
-                break;
+          if (frameIndex !== currentFrameRef.current) {
+            currentFrameRef.current = frameIndex;
+
+            if (loadedSetRef.current.has(frameIndex)) {
+              drawFrame(frameIndex);
+            } else {
+              // Find nearest loaded frame
+              for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+                if (loadedSetRef.current.has(frameIndex - offset) && frameIndex - offset >= 0) {
+                  drawFrame(frameIndex - offset);
+                  break;
+                }
+                if (loadedSetRef.current.has(frameIndex + offset) && frameIndex + offset < TOTAL_FRAMES) {
+                  drawFrame(frameIndex + offset);
+                  break;
+                }
               }
             }
           }
@@ -165,7 +167,7 @@ export default function HeroSequence() {
   }, [drawFrame, resizeCanvas]);
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[500vh] bg-primary">
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         {/* Canvas */}
         <canvas
@@ -217,7 +219,7 @@ export default function HeroSequence() {
           </div>
         </div>
 
-        {/* Scroll indicator - positioned relative to the sticky viewport */}
+        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
           <span className="text-text-secondary text-xs uppercase tracking-widest font-satoshi">Scroll to Explore</span>
           <div className="w-px h-10 bg-gradient-to-b from-gold to-transparent" />
